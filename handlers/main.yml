@@ -1,0 +1,7 @@
+---
+
+- name: start collectd
+  service: name=collectd enabled=yes state=started
+
+- name: restart collectd
+  service: name=collectd state=restarted

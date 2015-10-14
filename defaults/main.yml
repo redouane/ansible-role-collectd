@@ -1,0 +1,4 @@
+---
+
+collectd_interval: 10
+collectd_plugins: []

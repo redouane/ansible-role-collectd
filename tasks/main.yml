@@ -1,0 +1,43 @@
+---
+
+- name: install collectd package
+  apt: pkg={{ item }} state=present
+  with_items:
+    - collectd
+
+- name: configure collectd
+  template: src=collectd.conf.j2 dest=/etc/collectd/collectd.conf
+  notify:
+    - restart collectd
+
+# - name: install dependencies
+#   apt: pkg={{ item }} update_cache=yes state=present
+#   with_items:
+#     - gcc
+#     - make
+#     - libc6-dev
+
+# - name: download collectd source package
+#   get_url:
+#     url=https://collectd.org/files/collectd-{{ collectd_version }}.tar.gz
+#     dest=/tmp/collectd-{{ collectd_version }}.tar.gz
+#     mode=0440
+
+# - name: unpack collectd archive
+#   unarchive:
+#     src=/tmp/collectd-{{ collectd_version }}.tar.gz
+#     dest=/tmp
+#     creates=/tmp/collectd-{{ collectd_version }}
+#     copy=no
+
+# - name: configure collectd
+#   command: ./configure
+#     chdir=/tmp/collectd-{{ collectd_version }}
+
+# - name: compile collectd
+#   command: make
+#     chdir=/tmp/collectd-{{ collectd_version }}
+
+# - name: install collectd
+#   command: make install
+#     chdir=/tmp/collectd-{{ collectd_version }}
